@@ -1,6 +1,5 @@
-/*1.2 为mutations创建常量    ->  root.js */
+/*1.2 为mutations创建常量    ->  common.js */
 export const HEIGHT_CHANGE = 'HEIGHT_CHANGE';
 export const FULL_SCREEN_SWITCH = 'FULL_SCREEN_SWITCH';
-export const LOAD_NOTE='LOAD_NOTE';
-export const UPDATE_NOTES='UPDATE_NOTES';
-export const UPDATE_STATUS='UPDATE_STATUS';
+export const GET_NOTE='GET_NOTE';
+export const GET_PROFILES='GET_PROFILES';

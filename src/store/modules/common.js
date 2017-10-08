@@ -4,7 +4,6 @@ const state = {
     /*1.1 clientHeight 获取浏览器窗口的初始高度  ->mutation-types.js*/
     clientHeight: document.documentElement.clientHeight,
     fullScreen: false,
-    note: {},
 };
 
 
@@ -15,9 +14,6 @@ const mutations = {
     },
     [types.FULL_SCREEN_SWITCH](state, isActive) {
         state.fullScreen = isActive
-    },
-    [types.LOAD_NOTE](state, value) {
-        state.note = value
     }
 };
 
@@ -30,9 +26,6 @@ const actions = {
     },
     fullScreenSwitch({commit}, isActive) {
         commit(types.FULL_SCREEN_SWITCH, isActive)
-    },
-    loadNote({commit}, value) {
-        commit(types.LOAD_NOTE, value)
     }
 };
 

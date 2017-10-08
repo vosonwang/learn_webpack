@@ -5,8 +5,8 @@
     <div class="editor">
 
         <!--获取子组件的props，使用子组件的回调函数subfieldtoggle-->
-        <mavonEditor style="height: 100%" default_open="edit" placeholder="拖拽文件到此处或者直接输入..."
-                     @subfieldtoggle="subfieldCallback" @fullscreen="fullScreenCallback"
+        <mavonEditor style="height: 100%" default_open="edit" placeholder="写点什么或者把文件拖动到这儿..."
+                     @subfieldtoggle="subfieldCallback" @fullscreen="fullScreenCallback" @change="changeCallback"
                      :toolbars=this.toolbars :value=this.note.text></mavonEditor>
     </div>
 </template>
@@ -15,17 +15,16 @@
     import {mavonEditor} from 'mavon-editor'
     import {mapState, mapActions} from 'vuex'
     import 'mavon-editor/dist/css/index.css'
-
+    import Request from '../libs/request'
 
     export default {
         data() {
             return {
+                /*TODO optimize 如何更改按钮排列*/
                 toolbars: {
-                    save: true, // 保存（触发events中的save事件）
                     undo: true, // 上一步
                     redo: true, // 下一步
                     trash: true, // 清空
-
                     bold: true, // 粗体
                     italic: true, // 斜体
                     header: true, // 标题
@@ -61,7 +60,7 @@
         },
         computed: {
             ...mapState({
-                    'note': state => state.root.note
+                    'note': state => state.request.note
                 }
             ),
         },
@@ -80,7 +79,9 @@
             },
             /*编辑区域内容变更回调*/
             changeCallback: function () {
-                this.note.text = this.$children[0].d_value;
+                /*保存变更后的笔记*/
+                /*TODO optimize 避免点击简介，编辑内容变更后触发更新*/
+                Request.putNote({short_id: this.note.short_id, text: this.$children[0].d_value})
 
             },
             ...mapActions(['fullScreenSwitch'])
