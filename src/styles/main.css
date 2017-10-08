@@ -1,0 +1,4 @@
+/*这是最高级别的less 因为是main中直接引入的*/
+.ivu-message{
+  z-index: 2000;
+}
