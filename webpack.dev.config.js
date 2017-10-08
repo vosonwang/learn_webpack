@@ -20,8 +20,8 @@ module.exports = merge(webpackBaseConfig, {
     devServer: {
         proxy: {
             '/notes': {
-                target: 'http://localhost:5000',
-                /*pathRewrite: {'^/column' : '/column'},*/
+                target: 'http://192.168.31.163:5053',
+                /*target: 'http://localhost:5000',*/
                 changeOrigin: true
             }
         }

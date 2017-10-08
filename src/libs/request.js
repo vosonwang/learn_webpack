@@ -17,9 +17,9 @@ export default {
         const _self=this;
         Vue.http.put("/notes", data).then(({data: {result, status}}) => {
             /*TODO optimize 提示保存成功*/
-            _self.responseCheck({result, status},null)
+            _self.responseCheck({result, status},()=>{})
         }, ({data: result}) => {
-            _self.responseCheck({result, status: 'error'}, null)
+            _self.responseCheck({result, status: 'error'}, ()=>{})
         });
     }
 }

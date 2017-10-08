@@ -8,11 +8,11 @@
             <div class="count">
                 <span v-if="profiles">{{profiles.length}} 笔记</span>
             </div>
-        </div><!--clientHeight-->
+        </div>
         <div class="NotesView-ScrollWindow" v-bind:style="{  height: viewHeight + 'px' }">
             <Profile v-for="profile in profiles"
-                      v-bind:profile="profile"
-                      v-bind:key="profile.id"></Profile>
+                     v-bind:profile="profile"
+                     v-bind:key="profile.id"></Profile>
         </div>
     </div>
 </template>
