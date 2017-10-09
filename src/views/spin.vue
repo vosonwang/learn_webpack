@@ -14,8 +14,8 @@
     }
 
     .circular {
-        -webkit-animation: rotate 3s linear 2;
-        animation: rotate 3s linear 2;
+        -webkit-animation: rotate 3s linear 1;
+        animation: rotate 3s linear 1;
         height: 100%;
         -webkit-transform-origin: center center;
         -ms-transform-origin: center center;
@@ -32,14 +32,14 @@
     .path {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
-        -webkit-animation: dash 3s ease-in-out 2, color 3s ease-in-out 2;
-        animation: dash 3s ease-in-out 2, color 3s ease-in-out 2;
+        -webkit-animation: dash 3s ease-in-out 1, color 3s ease-in-out 1;
+        animation: dash 3s ease-in-out 1, color 3s ease-in-out 1;
         stroke-linecap: round;
     }
 
     .success {
-        -webkit-animation: success 8s ease-in-out 0s 1 alternate forwards;
-        animation: success 8s ease-in-out 0s 1 alternate forwards;
+        -webkit-animation: success 3.8s ease-in-out 0s 1 alternate forwards;
+        animation: success 3.8s ease-in-out 0s 1 alternate forwards;
     }
 
     @-webkit-keyframes rotate {
@@ -103,11 +103,11 @@
         0% {
             color: #8D8D8D;
         }
-        75%{
+        80%{
             color: #008100;
         }
         100% {
-            color: #fafafa;
+            color: #ffffff;
         }
     }
 
@@ -115,11 +115,11 @@
         0% {
             color: #8D8D8D;
         }
-        75%{
+        80%{
             color: #008100;
         }
         100% {
-            color: #fafafa;
+            color: #ffffff;
         }
     }
 
