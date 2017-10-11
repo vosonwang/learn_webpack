@@ -79,9 +79,12 @@
             },
             /*编辑区域内容变更回调*/
             changeCallback: function () {
-                /*保存变更后的笔记*/
-                /*TODO optimize 避免点击简介，编辑内容变更后触发更新*/
-                Request.putNote({short_id: this.note.short_id, text: this.$children[0].d_value})
+                /*当用户停止输入2s后保存变更后的笔记，利用throttle思路*/
+                let that=this;
+                clearTimeout(Request.putNote.t);
+                Request.putNote.t = setTimeout(function () {
+                    Request.putNote.call(this,{short_id: that.note.short_id, text: that.$children[0].d_value})
+                }, 2000)
 
             },
             ...mapActions(['fullScreenSwitch'])

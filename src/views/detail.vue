@@ -6,15 +6,13 @@
         <editor v-bind:style="{  height: editorHeight + 'px' }"></editor>
         <div class="toolbar" v-bind:class="{ fullScreen: isActive}">
             <Row>
-                <spin></spin>
             </Row>
         </div>
     </div>
 </template>
 <script>
-    import {mapState, mapGetters} from 'vuex';
+    import {mapState} from 'vuex';
     import Editor from './editor.vue'
-    import Spin from './spin.vue'
 
     export default {
         computed: {
@@ -26,7 +24,6 @@
         },
         components: {
             Editor,
-            Spin
         }
     }
 </script>

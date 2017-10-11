@@ -7,8 +7,9 @@ import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import './styles/main.css'
-/*../是上层文件夹*/
 import store from './store'
+/*../是上层文件夹*/
+
 
 Vue.use(VueRouter);
 Vue.use(iView);

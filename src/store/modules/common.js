@@ -4,6 +4,8 @@ const state = {
     /*1.1 clientHeight 获取浏览器窗口的初始高度  ->mutation-types.js*/
     clientHeight: document.documentElement.clientHeight,
     fullScreen: false,
+    /*loading控制器*/
+    loading:false,
 };
 
 
@@ -14,7 +16,10 @@ const mutations = {
     },
     [types.FULL_SCREEN_SWITCH](state, isActive) {
         state.fullScreen = isActive
-    }
+    },
+    [types.LOAD_SWITCH](state, isActive) {
+        state.loading = isActive
+    },
 };
 
 
@@ -26,6 +31,12 @@ const actions = {
     },
     fullScreenSwitch({commit}, isActive) {
         commit(types.FULL_SCREEN_SWITCH, isActive)
+    },
+    loadSwitch({commit}) {
+        commit(types.LOAD_SWITCH, true);
+        setTimeout(() => {
+            commit(types.LOAD_SWITCH, false);
+        }, 3750);
     }
 };
 

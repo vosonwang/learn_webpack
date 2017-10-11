@@ -1,25 +1,31 @@
 import iView from 'iview';
 import Vue from 'vue'
+import store from '../store'
 
-export default {
-    /*请求异常处理函数*/
-    responseCheck({result, status}, success) {
-        if (status === 'success') {
-            success()
-        } else if (status === 'warning') {
-            iView.Message.warning(result);
-        } else {
-            iView.Message.error(result)
-        }
-    },
-    /*更新笔记内容*/
-    putNote(data) {
-        const _self=this;
-        Vue.http.put("/notes", data).then(({data: {result, status}}) => {
-            /*TODO optimize 提示保存成功*/
-            _self.responseCheck({result, status},()=>{})
-        }, ({data: result}) => {
-            _self.responseCheck({result, status: 'error'}, ()=>{})
-        });
+let request = {};
+
+/*请求异常处理*/
+request.responseCheck = ({result, status}, success) => {
+    if (status === 'success') {
+        success()
+    } else if (status === 'warning') {
+        iView.Message.warning('注意：'+result);
+    } else {
+        iView.Message.error('错误：'+result)
     }
-}
+};
+
+/*更新笔记内容*/
+request.putNote = (data) => {
+    Vue.http.put("/notes", data).then(({data: {result, status}}) => {
+        request.responseCheck({result, status}, () => {
+            /*更新成功后载入loading动画*/
+            store.dispatch('loadSwitch')
+        })
+    }, ({data: result}) => {
+        request.responseCheck({'result':result, 'status': 'error'}, () => {})
+    });
+};
+
+
+export default request

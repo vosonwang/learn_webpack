@@ -1,9 +1,5 @@
 <style>
-    /*loading*/
-    .spin-col {
-        position: relative;
-        height: 40px;
-    }
+
 
     .loader {
         width: 30px;
@@ -14,8 +10,8 @@
     }
 
     .circular {
-        -webkit-animation: rotate 3s linear 2;
-        animation: rotate 3s linear 2;
+        -webkit-animation: rotate 1.5s linear 1;
+        animation: rotate 1.5s linear 1;
         height: 100%;
         -webkit-transform-origin: center center;
         -ms-transform-origin: center center;
@@ -32,14 +28,14 @@
     .path {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
-        -webkit-animation: dash 3s ease-in-out 2, color 3s ease-in-out 2;
-        animation: dash 3s ease-in-out 2, color 3s ease-in-out 2;
+        -webkit-animation: dash 1.5s ease-in-out 1, color 1.5s ease-in-out 1;
+        animation: dash 1.5s ease-in-out 1, color 1.5s ease-in-out 1;
         stroke-linecap: round;
     }
 
     .success {
-        -webkit-animation: success 8s ease-in-out 0s 1 alternate forwards;
-        animation: success 8s ease-in-out 0s 1 alternate forwards;
+        -webkit-animation: success 1.875s ease-in-out 0s 1 alternate forwards;
+        animation: success 1.875s ease-in-out 0s 1 alternate forwards;
     }
 
     @-webkit-keyframes rotate {
@@ -88,13 +84,13 @@
 
     @-webkit-keyframes color {
         100%, 0% {
-            stroke: #008100;
+            stroke: #399AFC;
         }
     }
 
     @keyframes color {
         100%, 0% {
-            stroke: #008100;
+            stroke: #399AFC;
         }
 
     }
@@ -103,8 +99,8 @@
         0% {
             color: #8D8D8D;
         }
-        75%{
-            color: #008100;
+        80% {
+            color: #399AFC;
         }
         100% {
             color: #fafafa;
@@ -115,8 +111,8 @@
         0% {
             color: #8D8D8D;
         }
-        75%{
-            color: #008100;
+        80% {
+            color: #399AFC;
         }
         100% {
             color: #fafafa;
@@ -125,9 +121,8 @@
 
 </style>
 <template>
-    <Col class="spin-col" span="1">
 
-    <Spin fix v-if="spinShow">
+    <Spin fix v-if=this.loading>
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="15" fill="none" stroke-width="2"
@@ -136,17 +131,15 @@
             <Icon type="ios-checkmark-empty" class="success" style="font-size: 30px;color:#8D8D8D"></Icon>
         </div>
     </Spin>
-    </Col>
 </template>
 <script>
-    import Spin from "../../node_modules/iview/src/components/spin/spin.vue";
+    import {mapState} from 'vuex';
 
     export default {
-        components: {Spin},
-        data() {
-            return {
-                spinShow: true
-            }
-        }
+        computed: {
+            ...mapState({
+                'loading': state => state.common.loading,
+            }),
+        },
     }
 </script>

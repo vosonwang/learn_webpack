@@ -3,12 +3,17 @@
 </style>
 <template>
     <div class="list">
-        <div class="head">
+        <Row class="head">
+            <Col span="21">
             <h1>笔记列表</h1>
             <div class="count">
                 <span v-if="profiles">{{profiles.length}} 笔记</span>
             </div>
-        </div>
+            </Col>
+            <Col span="3" class="spin-col">
+            <spin></spin>
+            </Col>
+        </Row>
         <div class="NotesView-ScrollWindow" v-bind:style="{  height: viewHeight + 'px' }">
             <Profile v-for="profile in profiles"
                      v-bind:profile="profile"
@@ -19,6 +24,8 @@
 <script>
     import Profile from './profile.vue';
     import {mapState, mapActions} from 'vuex'
+    import Spin from './spin.vue'
+
 
     export default {
         computed: {
@@ -30,6 +37,7 @@
         },
         components: {
             Profile,
+            Spin
         },
         methods: {
             /*1.5 导入heightChange方法  */
