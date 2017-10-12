@@ -1,5 +1,9 @@
 <style>
-
+    /*loading*/
+    .spin-col {
+        position: relative;
+        height: 40px;
+    }
 
     .loader {
         width: 30px;
@@ -10,8 +14,8 @@
     }
 
     .circular {
-        -webkit-animation: rotate 1.5s linear 1;
-        animation: rotate 1.5s linear 1;
+        -webkit-animation: rotate 3s linear 1;
+        animation: rotate 3s linear 1;
         height: 100%;
         -webkit-transform-origin: center center;
         -ms-transform-origin: center center;
@@ -28,15 +32,14 @@
     .path {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
-        -webkit-animation: dash 1.5s ease-in-out 1, color 1.5s ease-in-out 1;
-        animation: dash 1.5s ease-in-out 1, color 1.5s ease-in-out 1;
+        -webkit-animation: dash 3s ease-in-out 1, color 3s ease-in-out 1;
+        animation: dash 3s ease-in-out 1, color 3s ease-in-out 1;
         stroke-linecap: round;
     }
 
     .success {
-        /*通过调整success时间来调整check符号延续时间*/
-        -webkit-animation: success 2.5s ease-in-out 0s 1 alternate forwards;
-        animation: success 2.5s ease-in-out 0s 1 alternate forwards;
+        -webkit-animation: success 3.8s ease-in-out 0s 1 alternate forwards;
+        animation: success 3.8s ease-in-out 0s 1 alternate forwards;
     }
 
     @-webkit-keyframes rotate {
@@ -85,13 +88,13 @@
 
     @-webkit-keyframes color {
         100%, 0% {
-            stroke: #399AFC;
+            stroke: #008100;
         }
     }
 
     @keyframes color {
         100%, 0% {
-            stroke: #399AFC;
+            stroke: #008100;
         }
 
     }
@@ -100,14 +103,11 @@
         0% {
             color: #8D8D8D;
         }
-        60% {
-            color: #399AFC;
-        }
-        80% {
-            color: #399AFC;
+        80%{
+            color: #008100;
         }
         100% {
-            color: #fafafa;
+            color: #ffffff;
         }
     }
 
@@ -115,38 +115,38 @@
         0% {
             color: #8D8D8D;
         }
-        60% {
-            color: #399AFC;
-        }
-        80% {
-            color: #399AFC;
+        80%{
+            color: #008100;
         }
         100% {
-            color: #fafafa;
+            color: #ffffff;
         }
     }
 
 </style>
 <template>
-    <!--TODO Spin样式解耦-->
-    <Spin fix v-if=this.loading>
+    <Col class="spin-col" span="1">
+
+    <Spin fix v-if="spinShow">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2"
+                <circle class="path" cx="50" cy="50" r="15" fill="none" stroke-width="2"
                         stroke-miterlimit="10"></circle>
             </svg>
             <Icon type="ios-checkmark-empty" class="success" style="font-size: 30px;color:#8D8D8D"></Icon>
         </div>
     </Spin>
+    </Col>
 </template>
 <script>
-    import {mapState} from 'vuex';
+    import Spin from "../../node_modules/iview/src/components/spin/spin.vue";
 
     export default {
-        computed: {
-            ...mapState({
-                'loading': state => state.common.loading,
-            }),
-        },
+        components: {Spin},
+        data() {
+            return {
+                spinShow: true
+            }
+        }
     }
 </script>
