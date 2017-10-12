@@ -5,7 +5,9 @@ const state = {
     clientHeight: document.documentElement.clientHeight,
     fullScreen: false,
     /*loading控制器*/
-    loading:false,
+    loading: false,
+    /*修改中的笔记简介*/
+    profile:{}
 };
 
 
@@ -20,6 +22,9 @@ const mutations = {
     [types.LOAD_SWITCH](state, isActive) {
         state.loading = isActive
     },
+    [types.GET_PROFILE](state, profile) {
+    state.profile = profile
+},
 };
 
 
@@ -37,7 +42,10 @@ const actions = {
         setTimeout(() => {
             commit(types.LOAD_SWITCH, false);
         }, 3750);
-    }
+    },
+    getProfile({commit}, profile) {
+        commit(types.GET_PROFILE, profile)
+    },
 };
 
 export default {

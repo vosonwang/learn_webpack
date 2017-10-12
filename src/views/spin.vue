@@ -34,8 +34,9 @@
     }
 
     .success {
-        -webkit-animation: success 1.875s ease-in-out 0s 1 alternate forwards;
-        animation: success 1.875s ease-in-out 0s 1 alternate forwards;
+        /*通过调整success时间来调整check符号延续时间*/
+        -webkit-animation: success 2.5s ease-in-out 0s 1 alternate forwards;
+        animation: success 2.5s ease-in-out 0s 1 alternate forwards;
     }
 
     @-webkit-keyframes rotate {
@@ -99,6 +100,9 @@
         0% {
             color: #8D8D8D;
         }
+        60% {
+            color: #399AFC;
+        }
         80% {
             color: #399AFC;
         }
@@ -111,6 +115,9 @@
         0% {
             color: #8D8D8D;
         }
+        60% {
+            color: #399AFC;
+        }
         80% {
             color: #399AFC;
         }
@@ -121,11 +128,11 @@
 
 </style>
 <template>
-
+    <!--TODO Spin样式解耦-->
     <Spin fix v-if=this.loading>
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="15" fill="none" stroke-width="2"
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2"
                         stroke-miterlimit="10"></circle>
             </svg>
             <Icon type="ios-checkmark-empty" class="success" style="font-size: 30px;color:#8D8D8D"></Icon>

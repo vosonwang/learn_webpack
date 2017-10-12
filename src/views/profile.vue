@@ -4,8 +4,7 @@
 </style>
 <template>
     <div class="profile" @click="click">
-        <div class="hover">
-            {{profile.text}}
+        <div class="hover" v-html="profile.render">
         </div>
     </div>
 </template>
@@ -14,11 +13,20 @@
 
     export default {
         props: ['profile'],
-        methods:{
-            click:function () {
-                this.getNote(this.profile.short_id)
+        computed: {
+            ...mapState({
+                    'lastProfile': state => state.common.profile,
+                }
+            )
+        },
+        methods: {
+            click: function () {
+                if (this.lastProfile.short_id !== this.profile.short_id) {
+                    this.getNote(this.profile.short_id);
+                    this.getProfile(this.profile)
+                }
             },
-            ...mapActions(['loadNote','getNote'])
+            ...mapActions(['loadNote', 'getNote', 'getProfile'])
         }
     }
 </script>

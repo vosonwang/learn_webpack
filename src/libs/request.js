@@ -19,8 +19,10 @@ request.responseCheck = ({result, status}, success) => {
 request.putNote = (data) => {
     Vue.http.put("/notes", data).then(({data: {result, status}}) => {
         request.responseCheck({result, status}, () => {
+            /*重载整个简介列表，这个方法比较消耗服务器资源*/
+            store.dispatch('getProfiles');
             /*更新成功后载入loading动画*/
-            store.dispatch('loadSwitch')
+            store.dispatch('loadSwitch');
         })
     }, ({data: result}) => {
         request.responseCheck({'result':result, 'status': 'error'}, () => {})
