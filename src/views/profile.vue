@@ -4,7 +4,7 @@
 </style>
 <template>
     <div class="profile" @click="click">
-        <div class="hover" v-html="profile.render">
+        <div class="hover" v-html="profile.profile">
         </div>
     </div>
 </template>

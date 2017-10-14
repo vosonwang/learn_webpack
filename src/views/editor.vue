@@ -57,7 +57,7 @@
                     preview: true, // 预览
                 },
                 /*上次笔记的段编号*/
-                last_short_id:''
+                last_short_id: '',
             }
         },
         computed: {
@@ -83,22 +83,25 @@
             changeCallback: function () {
                 /*是否short_id发生了变更，即切换了不同的笔记*/
                 if (this.last_short_id === this.note.short_id) {
-                    /*当用户停止输入2s后保存变更后的笔记，利用throttle思路*/
+                    /*将编辑器内的变化同步到store.note,手动双向绑定*/
+                    this.updateNote({short_id: this.note.short_id, text: this.$children[0].d_value});
+
                     let that = this;
+                    /*当用户停止输入2s后保存变更后的笔记，利用throttle思路*/
                     clearTimeout(Request.putNote.t);
                     Request.putNote.t = setTimeout(function () {
-                        Request.putNote.call(this, {short_id: that.note.short_id, text: that.$children[0].d_value,render:that.$children[0].d_render})
+                        Request.putNote.call(this, that.note)
                     }, 2000)
                 } else {
                     this.last_short_id = this.note.short_id
                 }
 
             },
-            ...mapActions(['fullScreenSwitch',])
+            ...mapActions(['fullScreenSwitch', 'updateNote'])
         },
         mounted() {
             /*默认显示的是全屏编辑，所以双栏模式设置需手动设置为false*/
-            this.$children[0].s_subfield = false
+            this.$children[0].s_subfield = false;
         }
     }
 </script>

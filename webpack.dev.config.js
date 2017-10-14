@@ -19,9 +19,20 @@ module.exports = merge(webpackBaseConfig, {
     },
     devServer: {
         proxy: {
+            /*修改配置文件需要重启server才会有效*/
+            '/profiles': {
+                // target: 'http://192.168.31.163:5053',
+                target: 'http://localhost:5000',
+                changeOrigin: true
+            },
             '/notes': {
-                target: 'http://192.168.31.163:5053',
-                /*target: 'http://localhost:5000',*/
+                // target: 'http://192.168.31.163:5053',
+                target: 'http://localhost:5000',
+                changeOrigin: true
+            },
+            '/shortId':{
+                // target: 'http://192.168.31.163:5053',
+                target: 'http://localhost:5000',
                 changeOrigin: true
             }
         }

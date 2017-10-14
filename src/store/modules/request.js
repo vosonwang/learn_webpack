@@ -5,7 +5,7 @@ import Request from '../../libs/request'
 const state = {
     /*简介列表*/
     profiles: [],
-    note: {}
+    note: {},
 };
 
 const getters = {
@@ -25,7 +25,7 @@ const mutations = {
 const actions = {
     getProfiles({commit}) {
         /*下面data:{}能够自己解析json格式，不需要手动JSON.parse了*/
-        Vue.http.get("/notes", {}).then(({data: {result, status}}) => {
+        Vue.http.get("/profiles", {}).then(({data: {result, status}}) => {
             Request.responseCheck({result, status}, () => commit(types.GET_PROFILES, result))
         }, ({data: result}) => {
             Request.responseCheck({result, status: 'error'}, null)
@@ -37,6 +37,12 @@ const actions = {
         }, ({data: result}) => {
             Request.responseCheck({result, status: 'error'}, null)
         });
+    },
+    updateNote({commit}, note){
+        commit(types.GET_NOTE, note)
+    },
+    getShortId({commit}, short_id) {
+        commit(types.GET_NOTE, {'short_id':short_id,'text':''})
     }
 };
 
