@@ -9,9 +9,15 @@ request.responseCheck = ({result, status}, success) => {
     if (status === 'success') {
         success()
     } else if (status === 'warning') {
-        iView.Message.warning('注意：' + result);
+        iView.Message.warning({
+            content: '注意：'+result,
+                duration: 5
+        });
     } else {
-        iView.Message.error('错误：' + result)
+        iView.Message.error({
+            content: '错误：'+result,
+                duration: 5
+        })
     }
 };
 
@@ -25,19 +31,7 @@ request.putNote = (data) => {
             store.dispatch('loadSwitch');
         })
     }, ({data: result}) => {
-        request.responseCheck({'result': result, 'status': 'error'}, () => {
-        })
-    });
-};
-
-request.getShortId = () => {
-    Vue.http.get("/shortId").then(({data: {result, status}}) => {
-        request.responseCheck({result, status}, () => {
-            store.dispatch('getShortId', result);
-        })
-    }, ({data: result}) => {
-        request.responseCheck({'result': result, 'status': 'error'}, () => {
-        })
+        request.responseCheck({'result':result, 'status': 'error'}, () => {})
     });
 };
 
