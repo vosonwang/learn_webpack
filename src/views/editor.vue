@@ -7,7 +7,7 @@
         <!--获取子组件的props，使用子组件的回调函数subfieldtoggle-->
         <mavonEditor style="height: 100%" default_open="edit" placeholder="写点什么或者把文件拖动到这儿..."
                      @subfieldtoggle="subfieldCallback" @fullscreen="fullScreenCallback" @change="changeCallback"
-                     :toolbars=this.toolbars :value=this.note.text></mavonEditor>
+                     :toolbars=this.toolbars :value=this.value></mavonEditor>
     </div>
 </template>
 <script>
@@ -56,15 +56,24 @@
                     subfield: true, // 单双栏模式
                     preview: true, // 预览
                 },
-                /*上次笔记的段编号*/
-                last_short_id: '',
             }
         },
         computed: {
             ...mapState({
-                    'note': state => state.request.note,
+                    'note': state => state.request.noteHistory[state.request.noteHistory.length - 1],
+                    'lastProfile': state => state.common.profile,
+                    'noteHistory': state => state.request.noteHistory,
+                    'noteChange': state => state.request.noteChange,
+
                 }
-            )
+            ),
+            value: function () {
+                if (!this.note) {
+                    return ""
+                } else {
+                    return this.note.text
+                }
+            }
         },
         components: {
             'mavonEditor': mavonEditor
@@ -81,27 +90,35 @@
             },
             /*编辑区域内容变更回调*/
             changeCallback: function () {
-                /*是否short_id发生了变更，即切换了不同的笔记*/
-                if (this.last_short_id === this.note.short_id) {
-                    /*将编辑器内的变化同步到store.note,手动双向绑定*/
-                    this.updateNote({short_id: this.note.short_id, text: this.$children[0].d_value});
+//                /*是否short_id发生了变更，即切换了不同的笔记*/
+//                if (this.lastProfile.short_id === this.note.short_id) {
+//                    /*将编辑器内的变化同步到store.note,手动双向绑定*/
+//                    this.updateNote({short_id: this.note.short_id, text: this.$children[0].d_value});
+//
+
+//                }
+                if(!this.noteChange){
+                    this.updateNoteHistory(this.$children[0].d_value);
 
                     let that = this;
                     /*当用户停止输入2s后保存变更后的笔记，利用throttle思路*/
                     clearTimeout(Request.putNote.t);
+
                     Request.putNote.t = setTimeout(function () {
                         Request.putNote.call(this, that.note)
                     }, 2000)
-                } else {
-                    this.last_short_id = this.note.short_id
+                }else {
+                    this.changeNote()
                 }
 
+
             },
-            ...mapActions(['fullScreenSwitch', 'updateNote'])
+            ...mapActions(['fullScreenSwitch', 'updateNote', 'updateNoteHistory','changeNote'])
         },
         mounted() {
             /*默认显示的是全屏编辑，所以双栏模式设置需手动设置为false*/
             this.$children[0].s_subfield = false;
+
         }
     }
 </script>

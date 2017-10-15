@@ -16,9 +16,10 @@
             </Row>
         </div>
         <div class="NotesView-ScrollWindow" v-bind:style="{  height: viewHeight + 'px' }">
-            <Profile v-for="profile in profiles"
+            <Profile v-for="(profile,index) in profiles"
                      v-bind:profile="profile"
-                     v-bind:key="profile.id"></Profile>
+                     v-bind:key="profile.id"
+                     v-bind:index="index"></Profile>
         </div>
     </div>
 </template>
@@ -40,14 +41,14 @@
         },
         methods: {
             /*1.5 导入heightChange方法  */
-            ...mapActions(['getProfiles', 'heightChange'])
+            ...mapActions(['getAllProfiles', 'heightChange','noteSwitch'])
         },
         mounted() {
             window.onresize = () => {
                 /*1.6 触发heightChange */
                 this.heightChange(document.documentElement.clientHeight)
             };
-            this.getProfiles();
+            this.getAllProfiles();
         },
     }
 </script>

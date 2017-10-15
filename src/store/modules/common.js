@@ -16,11 +16,11 @@ const mutations = {
     [types.HEIGHT_CHANGE](state, new_height) {
         state.clientHeight = new_height
     },
-    [types.FULL_SCREEN_SWITCH](state, isActive) {
-        state.fullScreen = isActive
+    [types.FULL_SCREEN_SWITCH](state, bool) {
+        state.fullScreen = bool
     },
-    [types.LOAD_SWITCH](state, isActive) {
-        state.loading = isActive
+    [types.LOAD_SWITCH](state, bool) {
+        state.loading = bool
     },
     [types.GET_PROFILE](state, profile) {
     state.profile = profile
@@ -34,8 +34,8 @@ const actions = {
     heightChange({commit}, new_height) {
         commit(types.HEIGHT_CHANGE, new_height)
     },
-    fullScreenSwitch({commit}, isActive) {
-        commit(types.FULL_SCREEN_SWITCH, isActive)
+    fullScreenSwitch({commit}, bool) {
+        commit(types.FULL_SCREEN_SWITCH, bool)
     },
     loadSwitch({commit}) {
         commit(types.LOAD_SWITCH, true);

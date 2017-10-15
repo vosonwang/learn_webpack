@@ -6,7 +6,7 @@
         <editor v-bind:style="{  height: editorHeight + 'px' }"></editor>
         <div class="toolbar" v-bind:class="{ fullScreen: isActive}">
             <Row>
-                <Col span="1" class="spin-col">
+                <Col span="2" class="spin-col">
                 <spin></spin>
                 </Col>
             </Row>

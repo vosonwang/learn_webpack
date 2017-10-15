@@ -3,8 +3,18 @@
     @import "../styles/profile.less";
 </style>
 <template>
-    <div class="profile" @click="click">
-        <div class="hover" v-html="profile.profile">
+    <div class="profile">
+        <div class="wrap">
+            <Row>
+                <Col span="21">
+                <div v-html="profile.profile" @click="click" style="max-height: 75px;min-height:75px "></div>
+                </Col>
+                <Col class="icon" span="3">
+                <div @click="delNote">
+                    <Icon type="ios-trash-outline"></Icon>
+                </div>
+                </Col>
+            </Row>
         </div>
     </div>
 </template>
@@ -12,21 +22,26 @@
     import {mapState, mapActions} from 'vuex'
 
     export default {
-        props: ['profile'],
+        props: ['profile', 'index'],
         computed: {
             ...mapState({
                     'lastProfile': state => state.common.profile,
+                    'noteHistory': state => state.request.noteHistory,
+
                 }
             )
         },
         methods: {
             click: function () {
-                if (this.lastProfile.short_id !== this.profile.short_id) {
-                    this.getNote(this.profile.short_id);
+                if (this.noteHistory[this.noteHistory.length - 1].short_id !== this.profile.short_id) {
+                    this.noteSwitch(this.profile.short_id);
                     this.getProfile(this.profile)
                 }
             },
-            ...mapActions(['loadNote', 'getNote', 'getProfile'])
+            delNote: function () {
+                this.deleteNote({'short_id': this.profile.short_id, 'index': this.index});
+            },
+            ...mapActions(['getNote', 'getProfile', 'deleteNote', 'noteSwitch'])
         }
     }
 </script>
