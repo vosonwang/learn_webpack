@@ -8,13 +8,11 @@
     </div>
 </template>
 <script>
-    import Request from '../libs/request'
+    import {mapActions} from 'vuex';
 
     export default {
-        methods:{
-            getShortId:()=>{
-                Request.getShortId()
-            }
+        methods: {
+            ...mapActions(['getShortId'])
         }
     }
 </script>

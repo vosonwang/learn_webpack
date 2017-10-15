@@ -28,21 +28,31 @@ const actions = {
         Vue.http.get("/profiles", {}).then(({data: {result, status}}) => {
             Request.responseCheck({result, status}, () => commit(types.GET_PROFILES, result))
         }, ({data: result}) => {
-            Request.responseCheck({result, status: 'error'}, null)
+            Request.responseCheck({'result': result, 'status': 'error'},()=>{
+                console.log(result)
+            })
         });
     },
     getNote({commit}, id) {
         Vue.http.get("/notes/" + id, {}).then(({data: {result, status}}) => {
             Request.responseCheck({result, status}, () => commit(types.GET_NOTE, result))
         }, ({data: result}) => {
-            Request.responseCheck({result, status: 'error'}, null)
+            Request.responseCheck({'result': result, 'status': 'error'},()=>{
+                console.log(result)
+            })
         });
     },
-    updateNote({commit}, note){
+    updateNote({commit}, note) {
         commit(types.GET_NOTE, note)
     },
-    getShortId({commit}, short_id) {
-        commit(types.GET_NOTE, {'short_id':short_id,'text':''})
+    getShortId({commit}) {
+        Vue.http.get("/shortId").then(({data: {result, status}}) => {
+            Request.responseCheck({result, status}, () => commit(types.GET_NOTE, {'short_id': result, 'text': ''}))
+        }, ({data: result}) => {
+            Request.responseCheck({'result': result, 'status': 'error'},()=>{
+                console.log(result)
+            })
+        });
     }
 };
 

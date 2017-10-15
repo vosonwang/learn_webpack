@@ -31,7 +31,9 @@ request.putNote = (data) => {
             store.dispatch('loadSwitch');
         })
     }, ({data: result}) => {
-        request.responseCheck({'result':result, 'status': 'error'}, () => {})
+        request.responseCheck({'result':result, 'status': 'error'},()=>{
+            console.log(result)
+        })
     });
 };
 
